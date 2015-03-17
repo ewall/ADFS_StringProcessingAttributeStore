@@ -8,11 +8,12 @@ using System.IdentityModel;
 
 /* This ADFS Custom Attribute Store would allow us to transform claim rules with basic string manipulation, such as changing to all lowercase or all caps.
  *
- * The code is straight from Microsoft's example here:
+ * The code started straight from Microsoft's example here:
  *    https://msdn.microsoft.com/en-us/library/hh599320.aspx
  * ...with assistance from this article:
  *    http://blogs.technet.com/b/cloudpfe/archive/2013/12/27/how-to-create-a-custom-attribute-store-for-active-directory-federation-services-3-0.aspx
- *
+ * See those pages for details on compiling, installing, and using the DLL.
+ * 
  * --Eric Wallace, March 2015
  */
 
@@ -62,8 +63,28 @@ namespace StringProcessingAttributeStore
                     }
                 case "base64":
                     {
-                        // Assume that input string is in UTF-8 form.
+                        // MS says we can assume that input string is in UTF-8 form?
                         result = Convert.ToBase64String(Encoding.UTF8.GetBytes(inputString));
+                        break;
+                    }
+                case "trim":
+                    {
+                        result = inputString.Trim();
+                        break;
+                    }
+                case "removeDashes":
+                    {
+                        result = inputString.Replace("-", "");
+                        break;
+                    }
+                case "truncateTo12Chars":
+                    {
+                        result = Truncate(inputString, 12);
+                        break;
+                    }
+                case "truncateTo16Chars":
+                    {
+                        result = Truncate(inputString, 16);
                         break;
                     }
                 default:
@@ -91,5 +112,11 @@ namespace StringProcessingAttributeStore
         }
 
         #endregion
+
+        private static string Truncate(string value, int maxLength)
+        {
+            if (String.IsNullOrEmpty(value)) return value;
+            return value.Length <= maxLength ? value : value.Substring(0, maxLength);
+        }
     }
 }

@@ -9,7 +9,7 @@ The code was initially straight from Microsoft's example here:
 
 ...with assistance from this article:
 
-* [http://blogs.technet.com/b/cloudpfe/archive/2013/12/27/how-to-create-a-custom-attribute-store-for-active-directory-federation-services-3-0.aspx]()
+* [https://learn.microsoft.com/en-us/archive/blogs/cloudpfe/how-to-create-a-custom-attribute-store-for-active-directory-federation-services-3-0]()
 
 See those pages for details on compiling, installing, and using the DLL.
 
